@@ -22,21 +22,21 @@ enum LAYERS {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT_split_3x6_3(
-        KC_SCLN,     KC_V,   KC_L,   KC_N,   KC_D,     KC_K,                                   KC_J,   KC_W,   KC_O,     KC_U,      KC_QUOT,     KC_EQL,
+        KC_SCLN,     KC_V,   KC_L,   KC_N,   KC_D,     KC_K,                                   KC_J,   KC_W,   KC_O,     KC_U,      KC_QUOT,     KC_MINS,
         LT_SYM_ESC,  KC_T,   KC_S,   KC_R,   KC_H,     KC_F,                                   KC_G,   KC_C,   KC_A,     KC_I,      KC_E,        A(KC_BSPC),
-        S(KC_SCLN),  KC_Z,   KC_Q,   KC_X,   KC_P,     KC_B,                                   KC_M,   KC_Y,   KC_DOT,   KC_COMM,   S(KC_QUOT),  KC_MINS,
+        S(KC_SCLN),  KC_Z,   KC_Q,   KC_X,   KC_P,     KC_B,                                   KC_M,   KC_Y,   KC_DOT,   KC_COMM,   S(KC_QUOT),  KC_EQL,
                                               OSM_LGUI,  MO(_NAV),  OSM_LSFT,           KC_ENT,  KC_SPC,  S(KC_MINS)
     ),
     [_NAV] = LAYOUT_split_3x6_3(
         KC_F12,    KC_1,       KC_2,      KC_3,      KC_4,      KC_5,                          KC_6,     KC_7,     KC_8,     KC_9,     KC_0,        KC_TRNS,
         KC_TRNS,   OSM_LCTL,   OSM_LALT,  OSM_LGUI,  OSM_LSFT,  A(KC_ENT),                     S(KC_7),  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,    KC_BSPC,
-        KC_BSLS,   S(KC_TAB),  KC_LBRC,   KC_RBRC,   KC_TAB,    G(KC_C),                       KC_GRV,   KC_TAB,   A(KC_A),  A(KC_O),  A(KC_QUOT),  KC_TRNS,
+        KC_TRNS,   S(KC_TAB),  KC_LBRC,   KC_RBRC,   KC_TAB,    KC_BSLS,                       KC_GRV,   KC_TAB,   A(KC_A),  A(KC_O),  A(KC_QUOT),  KC_TRNS,
                                               KC_TRNS,  KC_TRNS, KC_TRNS,               KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
     [_SYM] = LAYOUT_split_3x6_3(
-        KC_TRNS,   XXXXXXX,    S(KC_2),  S(KC_3),  S(KC_4),    S(KC_5),                        S(KC_BSLS), KC_SCLN,    KC_LBRC,     KC_RBRC,   S(KC_LBRC), S(KC_RBRC),
-        KC_TRNS,   XXXXXXX,    S(KC_8),  KC_SLSH,  KC_MINS,    S(KC_EQL),                      S(KC_7),    KC_EQL,     S(KC_9),     S(KC_0),   S(KC_1),    KC_BSPC,
-        KC_TRNS,   XXXXXXX,    XXXXXXX,  KC_QUOT,  KC_GRV,     S(KC_6),                        KC_BSLS,    S(KC_SCLN), S(KC_COMM),  S(KC_DOT), S(KC_QUOT), KC_MINS,
+        KC_TRNS,   XXXXXXX,    S(KC_2),  S(KC_3),  S(KC_4),    S(KC_5),                        S(KC_BSLS), KC_SCLN,    S(KC_COMM), S(KC_DOT),  S(KC_RBRC), KC_TRNS,
+        KC_TRNS,   XXXXXXX,    S(KC_8),  KC_SLSH,  KC_MINS,    S(KC_EQL),                      S(KC_7),    KC_EQL,     S(KC_9),    S(KC_0),    S(KC_LBRC), KC_BSPC,
+        KC_TRNS,   XXXXXXX,    KC_LBRC,  KC_RBRC,  S(KC_GRV),  KC_BSLS,                        KC_GRV,     S(KC_SCLN), S(KC_1),    S(KC_SLSH), S(KC_QUOT), KC_TRNS,
                                               KC_TRNS,  KC_TRNS, KC_TRNS,               KC_TRNS,  KC_TRNS,  KC_TRNS
     )
 };
@@ -45,12 +45,15 @@ const key_override_t alt_bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, A(KC_
 const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, S(KC_1));
 const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, S(KC_SLSH));
+const key_override_t x_cmd_key_override = ko_make_basic(MOD_MASK_GUI, KC_X, G(KC_C));
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
 	&alt_bspc_key_override,
+	&bspc_key_override,
 	&dot_key_override,
 	&comma_key_override,
+	&x_cmd_key_override
 };
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
