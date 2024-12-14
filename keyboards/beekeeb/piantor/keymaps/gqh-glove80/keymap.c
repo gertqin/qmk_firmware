@@ -7,61 +7,59 @@
 
 #include QMK_KEYBOARD_H
 
+#define OSM_LCTL OSM(MOD_LCTL)
+#define OSM_LALT OSM(MOD_LALT)
+#define OSM_LGUI OSM(MOD_LGUI)
+#define OSM_LSFT OSM(MOD_LSFT)
 
 enum LAYERS {
-    _COLEMAK,
-    _COLEMAK_DK,
-    _SYM_LEFT,
-    _SYM_RIGHT,
+    _MAIN,
+    _NAV,
+    _SYM,
 };
-
-enum custom_keycodes {
-    KC_COLEMAK = SAFE_RANGE,
-    KC_COLE_DK,
-};
+  
+#define LT_SYM_ESC LT(_SYM, KC_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // [_DEF] = LAYOUT_split_3x6_3(
-    //     KC_EQL,          KC_Q,          KC_W,          KC_E,          KC_R,    KC_T,                KC_Y,  KC_U,  KC_I,            KC_O,            KC_P,             KC_MINS,
-    //     LGUI_T(KC_ESC),  KC_A,          KC_S,          KC_D,          KC_F,    KC_G,                KC_H,  KC_J,  KC_K,            KC_L,            KC_SCLN,          RGUI_T(KC_QUOT),
-    //     KC_GRV,          LCTL_T(KC_Z),  LALT_T(KC_X),  LGUI_T(KC_C),  KC_V,    KC_B,                KC_N,  KC_M,  RGUI_T(KC_COMM), LALT_T(KC_DOT),  RCTL_T(KC_SLSH),  OSM(MOD_LALT),
-    //                                            OSM(MOD_LSFT),  KC_BSPC,  LT(_SYM, KC_TAB),      LT(_SYM, KC_ENT),  KC_SPC,  OSM(MOD_RSFT)
-    // ),
-    [_COLEMAK] = LAYOUT_split_3x6_3(
-        KC_EQL,                 KC_Q,          KC_W,          KC_F,          KC_P,  KC_B,                KC_J,  KC_L,  KC_U,            KC_Y,            KC_SCLN,          KC_MINS,
-        KC_ESC,                 KC_A,          KC_R,          KC_S,          KC_T,  KC_G,                KC_H,  KC_N,  KC_E,            KC_I,            KC_O,             KC_QUOT,
-        LT(_SYM_LEFT, KC_GRV),  LCTL_T(KC_Z),  LALT_T(KC_X),  LGUI_T(KC_C),  KC_D,  KC_V,                KC_K,  KC_M,  RGUI_T(KC_COMM), LALT_T(KC_DOT),  RCTL_T(KC_SLSH),  KC_BSLS,
-                                             KC_BSPC,  OSM(MOD_LSFT),  LT(_SYM_RIGHT, KC_TAB),      LT(_SYM_LEFT, KC_ENT),  KC_SPC,  KC_DEL
+    [_MAIN] = LAYOUT_split_3x6_3(
+        KC_SCLN,     KC_V,   KC_L,   KC_N,   KC_D,     KC_K,                                   KC_J,   KC_W,   KC_O,     KC_U,      KC_QUOT,     KC_EQL,
+        LT_SYM_ESC,  KC_T,   KC_S,   KC_R,   KC_H,     KC_F,                                   KC_G,   KC_C,   KC_A,     KC_I,      KC_E,        A(KC_BSPC),
+        S(KC_SCLN),  KC_Z,   KC_Q,   KC_X,   KC_P,     KC_B,                                   KC_M,   KC_Y,   KC_DOT,   KC_COMM,   S(KC_QUOT),  KC_MINS,
+                                              OSM_LGUI,  MO(_NAV),  OSM_LSFT,           KC_ENT,  KC_SPC,  S(KC_MINS)
     ),
-    [_COLEMAK_DK] = LAYOUT_split_3x6_3(
-        KC_EQL,                 KC_Q,          KC_W,          KC_F,          KC_P,  KC_B,                KC_J,  KC_L,  KC_U,            KC_Y,            A(KC_O),          A(KC_A),
-        KC_ESC,                 KC_A,          KC_R,          KC_S,          KC_T,  KC_G,                KC_H,  KC_N,  KC_E,            KC_I,            KC_O,             A(KC_QUOT),
-        LT(_SYM_LEFT, KC_GRV),  LCTL_T(KC_Z),  LALT_T(KC_X),  LGUI_T(KC_C),  KC_D,  KC_V,                KC_K,  KC_M,  RGUI_T(KC_COMM), LALT_T(KC_DOT),  RCTL_T(KC_SLSH),  KC_QUOT,
-                                             KC_BSPC,  OSM(MOD_LSFT),  LT(_SYM_RIGHT, KC_TAB),      LT(_SYM_LEFT, KC_ENT),  KC_SPC,  KC_DEL
+    [_NAV] = LAYOUT_split_3x6_3(
+        KC_F12,    KC_1,       KC_2,      KC_3,      KC_4,      KC_5,                          KC_6,     KC_7,     KC_8,     KC_9,     KC_0,        KC_TRNS,
+        KC_TRNS,   OSM_LCTL,   OSM_LALT,  OSM_LGUI,  OSM_LSFT,  A(KC_ENT),                     S(KC_7),  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,    KC_BSPC,
+        KC_BSLS,   S(KC_TAB),  KC_LBRC,   KC_RBRC,   KC_TAB,    G(KC_C),                       KC_GRV,   KC_TAB,   A(KC_A),  A(KC_O),  A(KC_QUOT),  KC_TRNS,
+                                              KC_TRNS,  KC_TRNS, KC_TRNS,               KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
-    [_SYM_LEFT] = LAYOUT_split_3x6_3(
-        S(KC_EQL),  S(KC_1),       S(KC_2),       S(KC_3),  S(KC_4),   S(KC_5),              KC_F6,     KC_F7,    KC_F8,    KC_F9,           KC_F10,          KC_MINS,
-        KC_TRNS,    KC_1,          KC_2,          KC_3,     KC_4,      KC_5,                 KC_SCLN,   KC_RSFT,  KC_LGUI,  KC_LALT,         KC_RCTL,         KC_QUOT,
-        S(KC_GRV),  LCTL_T(KC_6),  LALT_T(KC_7),  KC_8,     KC_9,      KC_0,                 XXXXXXX,   KC_F11,   KC_F12,   DF(KC_COLEMAK),  DF(KC_COLE_DK),  KC_BSLS,
-                                           A(KC_BSPC),  OSM(MOD_LSFT),  KC_TAB,      KC_ENT,  KC_SPC,  KC_DEL
-    ),
-    [_SYM_RIGHT] = LAYOUT_split_3x6_3(
-        KC_TRNS,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                          S(KC_6),     S(KC_7),     S(KC_8),     S(KC_9),  S(KC_0),  KC_MINS,
-        KC_TRNS,  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  XXXXXXX,                        KC_LEFT,     KC_DOWN,     KC_UP,       KC_RGHT,  XXXXXXX,  KC_QUOT,
-        KC_TRNS,  G(KC_Z),  G(KC_X),  G(KC_C),  G(KC_V),  SGUI(KC_Z),                     KC_LBRC,     S(KC_LBRC),  S(KC_RBRC),  KC_RBRC,  XXXXXXX,  KC_BSLS,
-                                           A(KC_BSPC),  OSM(MOD_LSFT),  KC_TAB,      KC_ENT,  KC_SPC,  KC_DEL
+    [_SYM] = LAYOUT_split_3x6_3(
+        KC_TRNS,   XXXXXXX,    S(KC_2),  S(KC_3),  S(KC_4),    S(KC_5),                        S(KC_BSLS), KC_SCLN,    KC_LBRC,     KC_RBRC,   S(KC_LBRC), S(KC_RBRC),
+        KC_TRNS,   XXXXXXX,    S(KC_8),  KC_SLSH,  KC_MINS,    S(KC_EQL),                      S(KC_7),    KC_EQL,     S(KC_9),     S(KC_0),   S(KC_1),    KC_BSPC,
+        KC_TRNS,   XXXXXXX,    XXXXXXX,  KC_QUOT,  KC_GRV,     S(KC_6),                        KC_BSLS,    S(KC_SCLN), S(KC_COMM),  S(KC_DOT), S(KC_QUOT), KC_MINS,
+                                              KC_TRNS,  KC_TRNS, KC_TRNS,               KC_TRNS,  KC_TRNS,  KC_TRNS
     )
 };
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LT(_SYM_RIGHT, KC_TAB):
-        case LT(_SYM_LEFT, KC_ENT):
-        case LT(_SYM_LEFT, KC_GRV):
-            // Immediately select the hold action when another key is pressed.
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
+const key_override_t alt_bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, A(KC_BSPC), KC_BSPC);
+const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, S(KC_1));
+const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, S(KC_SLSH));
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+	&alt_bspc_key_override,
+	&dot_key_override,
+	&comma_key_override,
+};
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    if (!mods) {
+        switch (keycode) {
+            case KC_R: return KC_N;
+            case KC_L: return KC_S;
+        }
     }
+
+    return KC_H;  // Default to H
 }
