@@ -1,7 +1,7 @@
 #pragma once
 
 #define ONESHOT_TAP_TOGGLE 5
-#define ONESHOT_TIMEOUT 1000
+#define ONESHOT_TIMEOUT 500
 
 #define TAPPING_TERM 190
 #define PERMISSIVE_HOLD
