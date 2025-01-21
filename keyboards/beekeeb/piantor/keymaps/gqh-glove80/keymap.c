@@ -32,22 +32,22 @@ enum LAYERS {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT_split_3x6_3(
-        KC_SCLN,     KC_B,   KC_F,   KC_L,   KC_D,     KC_V,                                   KC_QUOT,  KC_P,   KC_O,     KC_U,      KC_MINS,   KC_COLN,
-        LT_SYM_ESC,  KC_N,   KC_S,   KC_R,   KC_T,     KC_M,                                   KC_Y,     KC_C,   KC_A,     KC_I,      KC_E,      A(KC_BSPC),
-        CTL_QUES,    KC_Q,   KC_Z,   KC_X,   KC_K,     KC_J,                                   KC_G,     KC_W,   KC_DOT,   KC_COMM,   KC_DQUO,   CTL_GRV,
-                                              GUI_TAB,  KC_H,  QK_REP,            LT_NAV_ENT,  KC_SPC,  ALT_UNDS
+        KC_COLN,     KC_B,   KC_F,   KC_L,   KC_K,     KC_Q,                                   KC_QUOT,  KC_P,   KC_O,     KC_U,     KC_SCLN,  KC_MINS,
+        LT_SYM_ESC,  KC_N,   KC_S,   KC_H,   KC_T,     KC_M,                                   KC_Y,     KC_C,   KC_A,     KC_E,     KC_I,     A(KC_BSPC),
+        CTL_GRV,     KC_X,   KC_V,   KC_J,   KC_D,     KC_Z,                                   KC_G,     KC_W,   KC_DOT,   KC_DQUO,  KC_COMM,  OSM_RSFT,
+                                              GUI_TAB,  KC_R,  QK_REP,            LT_NAV_ENT,  KC_SPC,  ALT_UNDS
     ),
     [_NAV] = LAYOUT_split_3x6_3(
-        KC_SCLN,   KC_DOT,   KC_6,   KC_5,   KC_4,   KC_PLUS,                                 KC_BSLS,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_COLN,
-        KC_LSFT,   KC_LALT,  KC_3,   KC_2,   KC_1,   KC_0,                                    KC_AMPR,  KC_LEFT,   KC_DOWN,  KC_UP,    KC_RIGHT,  KC_BSPC,
-        KC_LCTL,   KC_COMM,  KC_9,   KC_8,   KC_7,   KC_MINS,                                 KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_SLSH,   KC_GRV,
-                                              KC_TRNS,  S(KC_H), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
+        KC_SCLN,   KC_COMM,  KC_6,   KC_5,   KC_4,   KC_PLUS,                                 KC_BSLS,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_UNDS,
+        KC_LSFT,   KC_LALT,  KC_3,   KC_2,   KC_1,   KC_0,                                    KC_LEFT,  KC_DOWN,   KC_UP,    KC_RIGHT, KC_DQUO,   KC_BSPC,
+        KC_LCTL,   KC_DOT,   KC_9,   KC_8,   KC_7,   KC_MINS,                                 KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_SLSH,   KC_TILD,
+                                              KC_TRNS,  S(KC_R), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
     [_SYM] = LAYOUT_split_3x6_3(
-        KC_F12,    KC_F12,   KC_CIRC,  KC_PERC,  KC_DLR,   KC_PLUS,                           KC_PIPE,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_COLN,
+        KC_F12,    KC_F12,   KC_CIRC,  KC_PERC,  KC_DLR,   KC_PLUS,                           KC_PIPE,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_UNDS,
         KC_TRNS,   XXXXXXX,  KC_HASH,  KC_AT,    KC_EXLM,  KC_QUES,                           KC_AMPR,  KC_SCLN,   KC_LPRN,  KC_RPRN,  KC_DQUO,   KC_BSPC,
         KC_TRNS,   XXXXXXX,  KC_BSLS,  KC_ASTR,  KC_AMPR,  KC_MINS,                           KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_SLSH,   KC_TILD,
-                                              KC_TRNS,  S(KC_H), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
+                                              KC_TRNS,  S(KC_R), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 };
 
@@ -62,12 +62,10 @@ const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, 
 const key_override_t alt_bspc_key_override = ko_make_basic(MOD_MASK_GUI, A(KC_BSPC), G(KC_BSPC));
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_EXLM);
 const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUES);
-const key_override_t quot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_GRV);
 
 const key_override_t alt_i_key_override = ko_make_basic(MOD_MASK_ALT, KC_I, A(KC_QUOT));
 
-const key_override_t cmd_j_key_override = ko_make_basic(MOD_MASK_GUI, KC_J, G(KC_C));
-const key_override_t cmd_m_key_override = ko_make_basic(MOD_MASK_GUI, KC_M, G(KC_TAB));
+const key_override_t cmd_x_key_override = ko_make_basic(MOD_MASK_GUI, KC_X, G(KC_C));
 
 
 // This globally defines all key overrides to be used
@@ -76,10 +74,8 @@ const key_override_t *key_overrides[] = {
 	&alt_bspc_key_override,
 	&dot_key_override,
 	&comma_key_override,
-	&quot_key_override,
 	&alt_i_key_override,
-	&cmd_j_key_override,
-	&cmd_m_key_override
+	&cmd_x_key_override
 };
 
 #define REP_KEY_TIMEOUT 500
@@ -94,11 +90,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (get_repeat_key_count() > 0) {
         switch (keycode) {
             case KC_SPC:
+            case KC_DOT:
+            case KC_COMM:
             case KC_QUOT:
             case KC_DQUO:
+            case KC_MINS:
             case KC_BSPC:
             case A(KC_BSPC):
-            case CTL_QUES:
+            case ALT_UNDS:
             case LT_NAV_ENT: {
                 if (get_repeat_key_count() > 1 && timer_elapsed(keypress_timer) < TAPPING_TERM) {
                     // Double repeat key after space, set caps word
@@ -118,7 +117,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     return false;
                 }
+                return true;
             }
+            case KC_A ... KC_Z:
+                if (get_repeat_key_count() > 1 && record->event.pressed) {
+                    tap_code(KC_R);
+                    return false;
+                }
         }
         return true;
     }
