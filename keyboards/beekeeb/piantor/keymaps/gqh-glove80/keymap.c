@@ -17,11 +17,13 @@
 #define OSM_RSFT OSM(MOD_RSFT)
 
 #define LT_SYM_ESC LT(_SYM, KC_ESC)
+#define OSL_SYM OSL(_SYM)
 #define LT_NAV_ENT LT(_NAV, KC_ENT)
+#define LT_FN_TAB LT(_FN, KC_TAB)
 
-#define GUI_TAB LGUI_T(KC_TAB)
-#define CTL_EXLM LCTL_T(KC_EXLM)
-#define ALT_COLN LALT_T(KC_COLN)
+#define GUI_ESC LGUI_T(KC_ESC)
+#define CTL_GRV LCTL_T(KC_GRV)
+#define ALT_TAB LALT_T(KC_TAB)
 
 enum LAYERS {
     _MAIN,
@@ -47,10 +49,10 @@ enum SmartCase {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT_split_3x6_3(
-        ALT_COLN,    KC_B,   KC_F,   KC_L,   KC_K,     KC_Q,                                   KC_QUOT,  KC_P,   KC_O,     KC_U,     KC_SCLN,  KC_MINS,
-        LT_SYM_ESC,  KC_N,   KC_S,   KC_H,   KC_T,     KC_M,                                   KC_Y,     KC_C,   KC_A,     KC_E,     KC_I,     A(KC_BSPC),
-        CTL_EXLM,    KC_X,   KC_V,   KC_J,   KC_D,     KC_Z,                                   KC_G,     KC_W,   KC_DOT,   KC_DQUO,  KC_COMM,  OSM_RSFT,
-                                              GUI_TAB,  KC_R,  QK_REP,            LT_NAV_ENT,  KC_SPC,  OSL(_FN)
+        LT_FN_TAB, KC_B,   KC_F,   KC_L,   KC_K,     KC_Q,                                   KC_QUOT,  KC_P,   KC_O,     KC_U,     KC_SCLN,  KC_MINS,
+        OSL_SYM,   KC_N,   KC_S,   KC_H,   KC_T,     KC_M,                                   KC_Y,     KC_C,   KC_A,     KC_E,     KC_I,     A(KC_BSPC),
+        CTL_GRV,   KC_X,   KC_V,   KC_J,   KC_D,     KC_Z,                                   KC_G,     KC_W,   KC_DOT,   KC_DQUO,  KC_COMM,  KC_SLSH,
+                                              GUI_ESC,  KC_R,  OSM_LSFT,           LT_NAV_ENT,  KC_SPC,  ALT_TAB
     ),
     [_DAN] = LAYOUT_split_3x6_3(
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                             KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     A(KC_A),  A(KC_O),
@@ -62,26 +64,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,                               KC_F7,    KC_F8,     KC_F9,    KC_F10,   KC_F11,   KC_F12, 
         XXXXXXX,  SC_UPPE,  SC_CAME,  SC_SNAK,  SC_NORM,  XXXXXXX,                             XXXXXXX,  TO(_DAN),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                             XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-                                              XXXXXXX,  XXXXXXX, XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX
+                                              KC_TRNS,  KC_TRNS, KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
     [_NAV] = LAYOUT_split_3x6_3(
-        KC_TRNS,   KC_COMM,  KC_6,   KC_5,   KC_4,   KC_PLUS,                                 KC_BSLS,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_UNDS,
-        KC_TRNS,   KC_DOT,   KC_3,   KC_2,   KC_1,   KC_0,                                    KC_LEFT,  KC_DOWN,   KC_UP,    KC_RIGHT, KC_DQUO,   KC_BSPC,
-        KC_TRNS,   KC_LALT,  KC_9,   KC_8,   KC_7,   KC_MINS,                                 KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_SLSH,   KC_TILD,
+        KC_TRNS,   KC_COMM,  KC_6,   KC_5,   KC_4,   KC_PLUS,                                 KC_LCBR,  KC_LBRC,   KC_LPRN,  KC_RPRN,  KC_RBRC,   KC_RCBR,
+        KC_TRNS,   KC_DOT,   KC_3,   KC_2,   KC_1,   KC_0,                                    KC_LEFT,  KC_DOWN,   KC_UP,    KC_RIGHT, KC_DEL,    KC_BSPC,
+        KC_TRNS,   KC_LALT,  KC_9,   KC_8,   KC_7,   KC_MINS,                                 KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_QUES,   KC_SLSH,
                                               KC_TRNS,  S(KC_R), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
     [_SYM] = LAYOUT_split_3x6_3(
-        KC_TRNS,  XXXXXXX,  KC_CIRC,  KC_PERC,  KC_DLR,   KC_PLUS,                            KC_PIPE,  KC_LCBR,   KC_LBRC,  KC_RBRC,  KC_RCBR,   KC_UNDS,
-        KC_TRNS,  XXXXXXX,  KC_HASH,  KC_AT,    KC_EXLM,  KC_GRV,                             KC_AMPR,  KC_QUES,   KC_LPRN,  KC_RPRN,  KC_DQUO,   KC_BSPC,
-        KC_TRNS,  XXXXXXX,  KC_BSLS,  KC_ASTR,  KC_AMPR,  KC_MINS,                            KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,    KC_SLSH,   KC_TILD,
+        KC_TRNS,  XXXXXXX,  KC_CIRC,  KC_PERC,  KC_DLR,   KC_PLUS,                            KC_LCBR,  KC_LBRC,   KC_LPRN,  KC_RPRN,   KC_RBRC,   KC_RCBR,
+        KC_TRNS,  XXXXXXX,  KC_HASH,  KC_AT,    KC_EXLM,  KC_PIPE,                            KC_SCLN,  KC_COLN,   KC_UNDS,  KC_GRV,    KC_DEL,    KC_BSPC,
+        KC_TRNS,  XXXXXXX,  KC_BSLS,  KC_ASTR,  KC_AMPR,  KC_MINS,                            KC_ASTR,  KC_EQL,    KC_LT,    KC_GT,     KC_QUES,   KC_SLSH,
                                               KC_TRNS,  S(KC_R), KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 };
 
 const key_override_t bspc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 const key_override_t alt_bspc_key_override = ko_make_basic(MOD_MASK_GUI, A(KC_BSPC), G(KC_BSPC));
+
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_EXLM);
 const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUES);
+const key_override_t slsh_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_BSLS);
 
 const key_override_t cmd_j_key_override = ko_make_basic(MOD_MASK_GUI, KC_J, G(KC_C));
 
@@ -91,6 +95,7 @@ const key_override_t *key_overrides[] = {
 	&alt_bspc_key_override,
 	&dot_key_override,
 	&comma_key_override,
+	&slsh_key_override,
 	&cmd_j_key_override
 };
 
@@ -142,6 +147,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
             }
+            // case ALT_COLN:
+            //     if (record->event.pressed) {
+            //         tap_code16(KC_COLN);
+            //         return false;
+            //     }
         }
         return true;
     }
@@ -169,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         return false;
                 }
                 break;
-            case LT_SYM_ESC:
+            // case LT_SYM_ESC:
             case LT_NAV_ENT:
                 if (record->tap.count && record->event.pressed) {
                     smart_case = CASE_NORMAL;
@@ -188,7 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 keycode != KC_MINS &&
                 keycode != KC_BSPC &&
                 keycode != A(KC_BSPC) &&
-                keycode != LT_SYM_ESC &&
+                // keycode != LT_SYM_ESC &&
                 keycode != LT_NAV_ENT) {
                 // Only keep smart case on for chars, numbers, '-' and bspc
                 smart_case = CASE_NORMAL;
@@ -227,20 +237,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     // LT keys
-    switch (keycode) {
-        case ALT_COLN:
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_COLN);
-                return false;
-            }
-            break;
-        case CTL_EXLM:
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_EXLM);
-                return false;
-            }
-            break;
-    }
+    // switch (keycode) {
+    //     case ALT_COLN:
+    //         if (record->tap.count && record->event.pressed) {
+    //             tap_code16(KC_COLN);
+    //             return false;
+    //         }
+    //         break;
+    // }
 
     return true;
 }
