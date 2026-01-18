@@ -1,12 +1,15 @@
 #pragma once
 
-#define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TAP_TOGGLE 3
 #define ONESHOT_TIMEOUT 500
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 180
 #define TAPPING_TERM_PER_KEY
 
 #define QUICK_TAP_TERM 0
+
+#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 
 #define CHORDAL_HOLD
 
