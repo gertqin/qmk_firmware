@@ -47,9 +47,9 @@ enum keycode_aliases {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT_split_3x6_3(
-        KC_MINS,   KC_V,   KC_B,   KC_L,   KC_F,     KC_Q,                     KC_QUOT,  KC_W,   KC_O,     KC_U,     KC_COLN,  W_BSPC,
+        KC_MINS,   KC_V,   KC_B,   KC_L,   KC_F,     KC_Q,                     KC_QUOT,  KC_W,   KC_O,     KC_U,     KC_SCLN,  W_BSPC,
         OSM_LSFT,  KC_S,   KC_N,   KC_T,   SYM_H,    KC_M,                     KC_Y,     SYM_C,  KC_A,     KC_I,     KC_E,     OSM_RSFT,
-        OSM_LCTL,  CTL_Z,  CTL_X,  KC_J,   KC_D,     KC_K,                     KC_G,     KC_P,   KC_DOT,   KC_COMM,  CTL_SLSH, FN_ENT,
+        KC_COLN,   CTL_Z,  CTL_X,  KC_J,   KC_D,     KC_K,                     KC_G,     KC_P,   KC_DOT,   KC_COMM,  CTL_SLSH, FN_ENT,
                                        OSM_LGUI,  KC_R,  QK_REP,          OSL_NAV,  KC_SPC,  OSM_LALT
     ),
     [_NAV] = LAYOUT_split_3x6_3(
@@ -74,8 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_EXLM);
 const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUES);
-const key_override_t colon_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLN, KC_SCLN);
-const key_override_t ctl_slash_key_override = ko_make_basic(MOD_MASK_SHIFT, CTL_SLSH, KC_BSLS);
+const key_override_t slash_key_override = ko_make_basic(MOD_MASK_SHIFT, CTL_SLSH, KC_BSLS);
 const key_override_t cmd_j_key_override = ko_make_basic(MOD_MASK_GUI, KC_J, G(KC_C));
 const key_override_t cmd_c_key_override = ko_make_basic(MOD_MASK_GUI, SYM_C, G(KC_J));
 const key_override_t alt_i_key_override = ko_make_basic(MOD_MASK_ALT, KC_I, A(KC_QUOT));
@@ -85,8 +84,7 @@ const key_override_t alt_quot_key_override = ko_make_basic(MOD_MASK_ALT, KC_QUOT
 const key_override_t *key_overrides[] = {
     &dot_key_override,
     &comma_key_override,
-    &colon_key_override,
-    &ctl_slash_key_override,
+    &slash_key_override,
     &cmd_j_key_override,
     &cmd_c_key_override,
     &alt_i_key_override,
@@ -94,15 +92,11 @@ const key_override_t *key_overrides[] = {
 };
 
 const uint16_t caps_combo[] PROGMEM = {OSM_LSFT, OSM_RSFT, COMBO_END};
-const uint16_t dot_comm_combo[] PROGMEM = {KC_DOT, KC_COMM, COMBO_END};
-const uint16_t x_j_combo[] PROGMEM = {CTL_X, KC_J, COMBO_END};
 combo_t key_combos[] = {
     COMBO(caps_combo, CW_TOGG),         // two shifts => activate Caps Word.
-    COMBO(dot_comm_combo, KC_SCLN),     // , and . => ;
-    COMBO(x_j_combo, KC_ESC),      // X and J => esc
 };
 
-const int tapping_term_diff = 0;
+const int tapping_term_diff = -10;
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
