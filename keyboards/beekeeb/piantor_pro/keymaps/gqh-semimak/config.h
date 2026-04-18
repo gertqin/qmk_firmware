@@ -1,0 +1,15 @@
+#pragma once
+
+#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TIMEOUT 500
+
+#define TAPPING_TERM 210
+
+#define QUICK_TAP_TERM 0
+
+#define PERMISSIVE_HOLD
+#define CHORDAL_HOLD
+
+#define CAPS_WORD_INVERT_ON_SHIFT
+
+#define SELECT_WORD_OS_MAC
