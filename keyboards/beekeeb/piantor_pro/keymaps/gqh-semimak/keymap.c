@@ -27,7 +27,7 @@ enum keycode_aliases {
 
     OSL_NAV = OSL(_NAV),
     OSL_SYM = OSL(_SYM),
-    OSL_FN  = OSL(_FN),
+    MO_FN   = MO(_FN),
 
     CTL_ESC = CTL_T(KC_ESC),
     CTL_ENT = CTL_T(KC_ENT),
@@ -39,6 +39,8 @@ enum keycode_aliases {
     GA_DOWN = G(A(KC_DOWN)),
     GA_UP = G(A(KC_UP)),
     S_ESC = S(KC_ESC),
+    G_LBRC = G(KC_LBRC),
+    G_RBRC = G(KC_RBRC),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -46,25 +48,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,    KC_F,   KC_L,   KC_H,   KC_V,    KC_Q,                     KC_QUOT,  KC_W,   KC_U,     KC_O,    KC_Y,     KC_BSPC,
         OSM_LSFT,  KC_S,   KC_R,   KC_N,   KC_T,    KC_K,                     KC_C,     KC_D,   KC_E,     KC_A,    KC_I,     OSM_RSFT,
         CTL_ESC,   KC_X,   KC_J,   KC_B,   KC_M,    KC_Z,                     KC_P,     KC_G,   KC_COMM,  KC_DOT,  KC_MINS,  CTL_ENT,
-                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,       OSL_NAV,  KC_SPC,  OSL_FN
+                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,       OSL_NAV,  KC_SPC,  MO_FN
     ),
     [_NAV] = LAYOUT_split_3x6_3(
         KC_TRNS,   KC_MINS,  KC_6,  KC_5,  KC_4,  KC_PLUS,                    GC_LEFT,  GA_LEFT, GA_RIGHT, GC_RIGHT, S_ESC,   KC_TRNS,
         KC_TRNS,   KC_0,     KC_3,  KC_2,  KC_1,  KC_DOT,                     KC_LEFT,  KC_DOWN, KC_UP,    KC_RIGHT, KC_DEL,  KC_TRNS,
-        KC_TRNS,   KC_SLSH,  KC_9,  KC_8,  KC_7,  KC_ASTR,                    SELWBAK,  GA_DOWN, GA_UP,    SELWORD,  KC_DEL,  KC_TRNS,
-                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,       QK_LLCK,  KC_SPC,  OSL_FN
+        KC_TRNS,   KC_SLSH,  KC_9,  KC_8,  KC_7,  KC_ASTR,                    G_LBRC,   GA_DOWN, GA_UP,    G_RBRC,   KC_DEL,  KC_TRNS,
+                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,       OSL_NAV,  KC_SPC,  MO_FN
     ),
     [_SYM] = LAYOUT_split_3x6_3(
         KC_TRNS, KC_TILD, KC_LT,   KC_GT,   KC_MINS, KC_PERC,                 KC_CIRC,  KC_LCBR, KC_RCBR, KC_DLR,  KC_SCLN, KC_TRNS,
         KC_TRNS, KC_EXLM, KC_ASTR, KC_SLSH, KC_EQL,  KC_AMPR,                 KC_AT,    KC_LPRN, KC_RPRN, KC_COLN, KC_DQUO, ARROW,
-        KC_TRNS, KC_BSLS, KC_PLUS, KC_LBRC, KC_RBRC, KC_PIPE,                 KC_HASH,  KC_GRV,  KC_QUES, KC_EXLM, KC_UNDS, KC_TRNS,
-                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,      OSM_LGUI,  KC_SPC,  OSL_FN
+        KC_TRNS, KC_BSLS, KC_PLUS, KC_LBRC, KC_RBRC, KC_PIPE,                 KC_HASH,  KC_GRV,  KC_COMM, KC_DOT,  KC_UNDS, KC_TRNS,
+                                    OSM_LGUI,  OSM_LALT,  OSL_SYM,      OSM_LGUI,  KC_SPC,  MO_FN
     ),
     [_FN] = LAYOUT_split_3x6_3(
-        KC_TRNS, KC_F11,  KC_F6,  KC_F5,  KC_F4,  XXXXXXX,                    DT_PRNT,  DT_DOWN,   DT_UP,   XXXXXXX,  XXXXXXX,  QK_BOOT,
-        KC_TRNS, KC_F10,  KC_F3,  KC_F2,  KC_F1,  XXXXXXX,                    XXXXXXX,  KC_LSFT,   KC_LCTL, XXXXXXX,  XXXXXXX,  XXXXXXX,
-        KC_TRNS, KC_F12,  KC_F9,  KC_F8,  KC_F7,  XXXXXXX,                    XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,
-                                    OSM_LGUI,  OSM_LALT, XXXXXXX,       QK_LLCK,  KC_TRNS,  QK_LLCK
+        KC_TRNS, KC_F11,  KC_F6,  KC_F5,  KC_F4,  XXXXXXX,                    DT_PRNT,  DT_DOWN,  DT_UP,   XXXXXXX,  XXXXXXX,  QK_BOOT,
+        KC_TRNS, KC_F10,  KC_F3,  KC_F2,  KC_F1,  XXXXXXX,                    KC_MUTE,  KC_VOLD,  KC_VOLU, XXXXXXX,  XXXXXXX,  XXXXXXX,
+        KC_TRNS, KC_F12,  KC_F9,  KC_F8,  KC_F7,  XXXXXXX,                    XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,
+                                    OSM_LGUI,  OSM_LALT, XXXXXXX,       XXXXXXX,  KC_TRNS,  KC_TRNS
     ),
 };
 
@@ -109,6 +111,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_1 ... KC_0:
         case KC_BSPC:
         case KC_DEL:
+        case KC_MINS:
         case KC_UNDS:
         case KC_COLN:
             return true;
