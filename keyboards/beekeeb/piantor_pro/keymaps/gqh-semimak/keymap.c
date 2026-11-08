@@ -14,10 +14,6 @@ enum layers {
     _FN,
 };
 
-enum custom_keycodes {
-   ARROW = SAFE_RANGE,
-};
-
 enum keycode_aliases {
     OSM_LCTL = OSM(MOD_LCTL),
     OSM_LALT = OSM(MOD_LALT),
@@ -39,8 +35,22 @@ enum keycode_aliases {
     GA_DOWN = G(A(KC_DOWN)),
     GA_UP = G(A(KC_UP)),
     S_ESC = S(KC_ESC),
+    S_ENT = S(KC_ENT),
     G_LBRC = G(KC_LBRC),
     G_RBRC = G(KC_RBRC),
+
+    GA_0 = G(A(0)),
+    GA_1 = G(A(1)),
+    GA_2 = G(A(2)),
+    GA_3 = G(A(3)),
+    GA_4 = G(A(4)),
+    GA_5 = G(A(5)),
+    GA_6 = G(A(6)),
+    G_X = G(KC_X),
+    G_A = G(KC_A),
+    G_C = G(KC_C),
+    G_V = G(KC_V),
+    G_Z = G(KC_Z),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,15 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     OSM_LGUI,  OSM_LALT,  OSL_SYM,       OSL_NAV,  KC_SPC,  MO_FN
     ),
     [_NAV] = LAYOUT_split_3x6_3(
-        KC_TRNS,   KC_MINS,  KC_6,  KC_5,  KC_4,  KC_PLUS,                    GC_LEFT,  GA_LEFT, GA_RIGHT, GC_RIGHT, S_ESC,   KC_TRNS,
-        KC_TRNS,   KC_0,     KC_3,  KC_2,  KC_1,  KC_DOT,                     KC_LEFT,  KC_DOWN, KC_UP,    KC_RIGHT, KC_DEL,  KC_TRNS,
-        KC_TRNS,   KC_SLSH,  KC_9,  KC_8,  KC_7,  KC_ASTR,                    G_LBRC,   GA_DOWN, GA_UP,    G_RBRC,   KC_DEL,  KC_TRNS,
+        KC_TRNS, KC_F12,   GA_6,  GA_5,  GA_4,  XXXXXXX,                      GC_LEFT,  GA_LEFT, GA_RIGHT, GC_RIGHT, S_ESC,   KC_TRNS,
+        KC_TRNS, GA_0,     GA_3,  GA_2,  GA_1,  XXXXXXX,                      KC_LEFT,  KC_DOWN, KC_UP,    KC_RIGHT, S_ENT,   KC_TRNS,
+        KC_TRNS, G_X,      G_A,   G_C,   G_V,   G_Z,                          G_LBRC,   GA_DOWN, GA_UP,    G_RBRC,   KC_DEL,  KC_TRNS,
                                     OSM_LGUI,  OSM_LALT,  OSL_SYM,       OSL_NAV,  KC_SPC,  MO_FN
     ),
     [_SYM] = LAYOUT_split_3x6_3(
-        KC_TRNS, KC_TILD, KC_LT,   KC_GT,   KC_MINS, KC_PERC,                 KC_CIRC,  KC_LCBR, KC_RCBR, KC_DLR,  KC_SCLN, KC_TRNS,
-        KC_TRNS, KC_EXLM, KC_ASTR, KC_SLSH, KC_EQL,  KC_AMPR,                 KC_AT,    KC_LPRN, KC_RPRN, KC_COLN, KC_DQUO, ARROW,
-        KC_TRNS, KC_BSLS, KC_PLUS, KC_LBRC, KC_RBRC, KC_PIPE,                 KC_HASH,  KC_GRV,  KC_COMM, KC_DOT,  KC_UNDS, KC_TRNS,
+        KC_TRNS, KC_MINS,  KC_6,  KC_5,  KC_4,  KC_PLUS,                      KC_LT,    KC_LBRC, KC_RBRC, KC_GT,   KC_DQUO, KC_TRNS,
+        KC_TRNS, KC_0,     KC_3,  KC_2,  KC_1,  KC_EQL,                       KC_AT,    KC_LPRN, KC_RPRN, KC_SCLN, KC_SLSH, KC_TRNS,
+        KC_TRNS, KC_BSLS,  KC_9,  KC_8,  KC_7,  KC_PIPE,                      KC_AMPR,  KC_GRV,  KC_COMM, KC_DOT,  KC_UNDS, KC_TRNS,
                                     OSM_LGUI,  OSM_LALT,  OSL_SYM,      OSM_LGUI,  KC_SPC,  MO_FN
     ),
     [_FN] = LAYOUT_split_3x6_3(
@@ -72,8 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_EXLM);
 const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_QUES);
-const key_override_t cmd_h_key_override = ko_make_basic(MOD_MASK_GUI, KC_H, G(KC_C));
-const key_override_t cmd_c_key_override = ko_make_basic(MOD_MASK_GUI, KC_C, G(KC_H));
+const key_override_t alt_h_key_override = ko_make_basic(MOD_MASK_ALT, KC_H, G(KC_C));
 const key_override_t alt_i_key_override = ko_make_basic(MOD_MASK_ALT, KC_I, A(KC_QUOT));
 const key_override_t alt_quot_key_override = ko_make_basic(MOD_MASK_ALT, KC_QUOT, A(KC_I));
 
@@ -81,8 +90,7 @@ const key_override_t alt_quot_key_override = ko_make_basic(MOD_MASK_ALT, KC_QUOT
 const key_override_t *key_overrides[] = {
     &dot_key_override,
     &comma_key_override,
-    &cmd_h_key_override,
-    &cmd_c_key_override,
+    &alt_h_key_override,
     &alt_i_key_override,
     &alt_quot_key_override
 };
@@ -122,26 +130,8 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    uint8_t mod_state = get_mods();
-    uint8_t os_mod_state = get_oneshot_mods();
-
-    bool shift = mod_state & MOD_MASK_SHIFT || os_mod_state & MOD_MASK_SHIFT;
-
-    switch (keycode) {
-    case ARROW:  // Unicode arrows -> => through Shift
-        if (record->event.pressed) {
-            del_mods(MOD_MASK_SHIFT);
-            del_oneshot_mods(MOD_MASK_SHIFT);
-            SEND_STRING(shift ? "=>" : "->");
-            set_mods(mod_state);
-        }
-        return false;
-    }
-
     if (IS_LAYER_ON(_SYM)) {
         if (record->event.pressed) {
-            // Disable one-shot shift on symbol layer
-            del_oneshot_mods(MOD_MASK_SHIFT);
             // Fix rolling on keys w/wo weak mod shift, e.g. +=
             clear_weak_mods();
             send_keyboard_report();
