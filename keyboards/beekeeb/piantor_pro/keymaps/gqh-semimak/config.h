@@ -11,5 +11,3 @@
 #define CHORDAL_HOLD
 
 #define CAPS_WORD_INVERT_ON_SHIFT
-
-#define SELECT_WORD_OS_MAC
